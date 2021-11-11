@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Numerics;
+using Dalamud.Logging;
 using GatherBuddy.Classes;
 using GatherBuddy.Enums;
 using ImGuiNET;
@@ -151,20 +152,40 @@ namespace GatherBuddy.Gui
             }
         }
 
-        private void DrawNewAlarm()
+        private void DrawNewAlarmDialog()
         {
-            if (ImGui.Button("  + "))
-                _alarmCache.AddAlarm();
+            if (ImGui.BeginPopupModal("New Alarm"))
+            {
+                if (ImGui.Button("Close"))
+                {
+                    CloseCurrentPopup();
+                }
+            }
+        }
+        
+        private void DrawNewAlarmButton()
+        {
+            //if (ImGui.Button("  + "))
+            //    _alarmCache.AddAlarm();
 
-            ImGui.SameLine();
-            ImGui.SetNextItemWidth(_alarmCache.NameSize * _globalScale);
-            ImGui.InputTextWithHint("##Name", "New Alarm Name", ref _alarmCache.NewName, 64);
-            ImGui.SameLine();
-            ImGui.SetNextItemWidth(-1);
+            //ImGui.SameLine();
+            //ImGui.SetNextItemWidth(_alarmCache.NameSize * _globalScale);
+            //ImGui.InputTextWithHint("##Name", "New Alarm Name", ref _alarmCache.NewName, 64);
+            //ImGui.SameLine();
+            //ImGui.SetNextItemWidth(-1);
 
-            var comboSize = _alarmCache.LongestNodeNameLength * _globalScale;
-            DrawComboWithFilter("##Node",    _alarmCache.AllTimedNodeNames, ref _alarmCache.NewIdx, ref _alarmCache.NodeFilter,
-                ref _alarmCache.FocusFilter, comboSize,                     6);
+            //var comboSize = _alarmCache.LongestNodeNameLength * _globalScale;
+            //DrawComboWithFilter("##Node",    _alarmCache.AllTimedNodeNames, ref _alarmCache.NewIdx, ref _alarmCache.NodeFilter,
+            //    ref _alarmCache.FocusFilter, comboSize,                     6);
+            
+
+            if (ImGui.Button("New Alarm"))
+            {
+                ImGui.SetNextWindowSize(new Vector2(450, 450));
+                OpenPopup("New Alarm", true, true);
+            }
+
+            DrawNewAlarmDialog();
         }
 
         private void DrawAlarmsTab()
@@ -190,7 +211,7 @@ namespace GatherBuddy.Gui
 
             raii.End();
 
-            DrawNewAlarm();
+            DrawNewAlarmButton();
         }
     }
 }

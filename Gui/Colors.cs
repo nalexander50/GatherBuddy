@@ -6,6 +6,17 @@ namespace GatherBuddy.Gui
 {
     public static class Colors
     {
+        public struct Keys
+        {
+            public static readonly int ModalWindowDimBg = (int) ImGuiCol.ModalWindowDimBg;
+        }
+
+        public struct Backdrop
+        {
+            public static readonly Vector4 DefaultModalBackdrop = new(0.8f, 0.8f, 0.8f, 0.35f);
+            public static readonly Vector4 TransparentModalBackdrop = new(0.8f, 0.8f, 0.8f, 0f);
+        }
+
         public struct FishTimer
         {
             public const uint Invalid           = 0x20FFFFFF;

@@ -9,7 +9,7 @@ namespace GatherBuddy.Gui
 {
     public partial class Interface : IDisposable
     {
-        private const string PluginName             = "GatherBuddy";
+        private const string PluginName             = "MyGatherBuddy";
         private const float  DefaultHorizontalSpace = 5;
 
         private readonly string      _configHeader;

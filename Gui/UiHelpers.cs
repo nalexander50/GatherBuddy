@@ -7,6 +7,36 @@ namespace GatherBuddy.Gui
 {
     public partial class Interface
     {
+        private static readonly Lazy<Vector2> WindowCenter = new(() =>
+        {
+            var io = ImGui.GetIO();
+            return new Vector2(io.DisplaySize.X * 0.5f, io.DisplaySize.Y * 0.5f);
+        });
+
+        private static void OpenPopup(string name, bool centered, bool transparentBackdrop)
+        {
+            if (centered)
+            {
+                ImGui.SetNextWindowPos(WindowCenter.Value, ImGuiCond.Always, new Vector2(0.5f, 0.5f));
+            }
+
+            if (transparentBackdrop)
+            {
+                var style = ImGui.GetStyle();
+                style.Colors[Colors.Keys.ModalWindowDimBg] = Colors.Backdrop.TransparentModalBackdrop;
+            }
+
+            ImGui.OpenPopup(name);
+        }
+
+        private static void CloseCurrentPopup()
+        {
+            ImGui.CloseCurrentPopup();
+
+            var style = ImGui.GetStyle();
+            style.Colors[Colors.Keys.ModalWindowDimBg] = Colors.Backdrop.DefaultModalBackdrop;
+        }
+
         private static void HorizontalSpace(float width)
         {
             ImGui.SameLine();
